@@ -1,4 +1,4 @@
-/* Home-repair UI V0.4 — diagnose + before/after + deep history */
+/* Home-repair UI V0.4.1 — diagnose + before/after + deep history */
 (function () {
   'use strict';
 
@@ -512,6 +512,14 @@
     }
     if ($('btn-repair-wiz-back')) {
       $('btn-repair-wiz-back').addEventListener('click', function () {
+        // From quick library → back to repair home in one tap
+        if (state.diagAnswers && state.diagAnswers.source === 'quick') {
+          state.diagAnswers = {};
+          renderQuickJobs();
+          renderCategories();
+          showScreen('repair');
+          return;
+        }
         if (YebRepairsData.DIAGNOSIS && YebRepairsData.DIAGNOSIS[state.categoryId]) {
           state.diagQ = 0;
           state.diagAnswers = {};
