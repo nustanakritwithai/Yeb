@@ -4,95 +4,128 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
   <meta name="theme-color" content="#f7e8df" />
-  <meta name="description" content="เพื่อนหัดเย็บ — เพื่อนคู่ใจคุณแม่มือใหม่หัดเย็บผ้า" />
-  <title>เพื่อนหัดเย็บ</title>
+  <meta name="apple-mobile-web-app-capable" content="yes" />
+  <meta name="apple-mobile-web-app-title" content="เพื่อนเย็บ" />
+  <meta name="description" content="ผู้ช่วยฝึกฝีมือเย็บผ้า — สมุดงานและขนาดตัว" />
+  <title>เพื่อนเย็บ · สมุดงาน</title>
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link href="https://fonts.googleapis.com/css2?family=Sarabun:wght@400;500;600;700&display=swap" rel="stylesheet" />
-  <link rel="stylesheet" href="styles.css" />
+  <link rel="stylesheet" href="styles.css?v=companion1" />
 </head>
 <body>
   <div id="app" class="app">
-    <!-- หน้าแรก -->
+    <!-- HOME -->
     <section id="screen-home" class="screen is-active" data-screen="home" aria-label="หน้าแรก">
       <header class="home-header">
-        <p class="home-kicker">ยินดีต้อนรับค่ะ</p>
-        <h1 class="home-title">เพื่อนหัดเย็บ</h1>
-        <p class="home-subtitle">เพื่อนคู่ใจคุณแม่มือใหม่<br />หัดเย็บผ้าทีละนิด ไม่ยากเลย</p>
+        <p class="home-kicker">ผู้ช่วยฝึกฝีมือ</p>
+        <h1 class="home-title">เพื่อนเย็บ</h1>
+        <p class="home-subtitle">เก็บงานที่ทำ · จดจุดพลาด · จำขนาดตัว<br />ไม่ใช่ตำราเรียน</p>
       </header>
-
       <nav class="home-nav" aria-label="เมนูหลัก">
-        <button type="button" class="big-btn" data-go="learn">
-          <span class="big-btn-emoji" aria-hidden="true">🌱</span>
-          <span class="big-btn-label">เริ่มเรียนเย็บผ้า</span>
-          <span class="big-btn-hint">เรียนทีละขั้น ง่ายๆ</span>
+        <button type="button" class="big-btn" data-go="projects">
+          <span class="big-btn-emoji" aria-hidden="true">📚</span>
+          <span class="big-btn-label">สมุดงานของฉัน</span>
+          <span class="big-btn-hint">รูป + จดวิธี / จุดพลาด</span>
         </button>
-
-        <button type="button" class="big-btn" data-go="today">
-          <span class="big-btn-emoji" aria-hidden="true">👜</span>
-          <span class="big-btn-label">วันนี้ทำอะไรดี</span>
-          <span class="big-btn-hint">เลือกงานสั้นๆ ทำได้เลย</span>
+        <button type="button" class="big-btn" data-go="body">
+          <span class="big-btn-emoji" aria-hidden="true">📐</span>
+          <span class="big-btn-label">ขนาดตัว</span>
+          <span class="big-btn-hint">อก เอว สะโพก ส่วนสูง</span>
         </button>
-
-        <button type="button" class="big-btn" data-go="help">
+        <button type="button" class="big-btn big-btn-muted" data-go="soon-work" disabled>
+          <span class="big-btn-emoji" aria-hidden="true">✂️</span>
+          <span class="big-btn-label">ทำชิ้นงาน</span>
+          <span class="big-btn-hint">เร็ว ๆ นี้</span>
+        </button>
+        <button type="button" class="big-btn big-btn-muted" data-go="soon-help" disabled>
           <span class="big-btn-emoji" aria-hidden="true">🆘</span>
-          <span class="big-btn-label">มีปัญหา ช่วยหน่อย</span>
-          <span class="big-btn-hint">เส้นขาด เข็มติด ไหมพัน…</span>
-        </button>
-
-        <button type="button" class="big-btn" data-go="skills">
-          <span class="big-btn-emoji" aria-hidden="true">⭐</span>
-          <span class="big-btn-label">สิ่งที่ฉันทำได้แล้ว</span>
-          <span class="big-btn-hint">เก็บความภูมิใจไว้ที่นี่</span>
+          <span class="big-btn-label">แก้ปัญหา</span>
+          <span class="big-btn-hint">เร็ว ๆ นี้</span>
         </button>
       </nav>
-
-      <footer class="home-footer">
-        <p>เวอร์ชัน 0.1 · ใช้ได้ทันที ไม่ต้องสมัคร</p>
-      </footer>
+      <footer class="home-footer"><p>V0.1 · ข้อมูลเก็บในเครื่องนี้เท่านั้น</p></footer>
     </section>
 
-    <!-- เริ่มเรียน -->
-    <section id="screen-learn" class="screen" data-screen="learn" hidden aria-label="เริ่มเรียนเย็บผ้า">
-      <div class="placeholder">
-        <p class="placeholder-emoji" aria-hidden="true">🌱</p>
-        <h2 class="placeholder-title">เริ่มเรียนเย็บผ้า</h2>
-        <p class="placeholder-text">เร็วๆ นี้ค่ะ<br />บทเรียนทีละขั้นกำลังมาในเวอร์ชันถัดไป</p>
-        <button type="button" class="btn-back" data-go="home">← กลับหน้าแรก</button>
-      </div>
+    <!-- PROJECT LIST -->
+    <section id="screen-projects" class="screen" data-screen="projects" hidden aria-label="สมุดงาน">
+      <header class="sub-header">
+        <button type="button" class="btn-back" data-go="home">← กลับ</button>
+        <h2>📚 สมุดงาน</h2>
+      </header>
+      <button type="button" class="btn-primary-block" id="btn-new-project">＋ บันทึกงานใหม่</button>
+      <div id="project-list" class="project-list" aria-live="polite"></div>
     </section>
 
-    <!-- วันนี้ทำอะไรดี -->
-    <section id="screen-today" class="screen" data-screen="today" hidden aria-label="วันนี้ทำอะไรดี">
-      <div class="placeholder">
-        <p class="placeholder-emoji" aria-hidden="true">👜</p>
-        <h2 class="placeholder-title">วันนี้ทำอะไรดี</h2>
-        <p class="placeholder-text">เร็วๆ นี้ค่ะ<br />ไอเดียงานสั้นๆ กำลังมาในเวอร์ชันถัดไป</p>
-        <button type="button" class="btn-back" data-go="home">← กลับหน้าแรก</button>
-      </div>
+    <!-- PROJECT FORM -->
+    <section id="screen-project-form" class="screen" data-screen="project-form" hidden aria-label="บันทึกงาน">
+      <header class="sub-header">
+        <button type="button" class="btn-back" id="btn-form-back">← กลับ</button>
+        <h2 id="form-title">บันทึกงาน</h2>
+      </header>
+      <form id="form-project" class="stack-form">
+        <input type="hidden" id="project-id" value="" />
+        <label class="field">ชื่องาน *
+          <input id="project-title" required maxlength="80" placeholder="เช่น เสื้อดอกไม้ / ถุงผ้าดอกเล็ก" />
+        </label>
+        <label class="field">ผ้าที่ใช้
+          <input id="project-fabric" maxlength="80" placeholder="เช่น คอตตอน / ลินิน" />
+        </label>
+        <div class="field">
+          <span class="field-label">รูปผลงาน</span>
+          <div class="photo-row">
+            <label class="btn-photo">
+              📷 ถ่าย / เลือกภาพ
+              <input type="file" id="project-photo" accept="image/*" capture="environment" hidden />
+            </label>
+            <button type="button" class="btn-text" id="btn-clear-photo" hidden>ลบรูป</button>
+          </div>
+          <img id="project-photo-preview" class="photo-preview" alt="ตัวอย่างรูป" hidden />
+        </div>
+        <label class="field">ทำอย่างไร (สั้น ๆ)
+          <textarea id="project-how" rows="3" maxlength="800" placeholder="ขั้นตอนที่ใช้ หรือแพทเทิร์นที่อ้าง"></textarea>
+        </label>
+        <label class="field">จุดที่ยังไม่ดี / พลาดตรงไหน
+          <textarea id="project-mistake" rows="3" maxlength="800" placeholder="เช่น คอเสื้อยังไม่เรียบ"></textarea>
+        </label>
+        <label class="field">ครั้งหน้าจะทำต่างยังไง ⭐
+          <textarea id="project-next" rows="3" maxlength="800" placeholder="เช่น เพิ่มไหล่ 1 ซม."></textarea>
+        </label>
+        <button type="submit" class="btn-primary-block">บันทึก</button>
+        <button type="button" class="btn-danger-block" id="btn-delete-project" hidden>ลบงานนี้</button>
+        <p id="form-msg" class="form-msg" role="status"></p>
+      </form>
     </section>
 
-    <!-- มีปัญหา -->
-    <section id="screen-help" class="screen" data-screen="help" hidden aria-label="มีปัญหา ช่วยหน่อย">
-      <div class="placeholder">
-        <p class="placeholder-emoji" aria-hidden="true">🆘</p>
-        <h2 class="placeholder-title">มีปัญหา ช่วยหน่อย</h2>
-        <p class="placeholder-text">เร็วๆ นี้ค่ะ<br />คำตอบปัญหาเย็บผ้ากำลังมาในเวอร์ชันถัดไป</p>
-        <button type="button" class="btn-back" data-go="home">← กลับหน้าแรก</button>
-      </div>
-    </section>
-
-    <!-- สิ่งที่ทำได้แล้ว -->
-    <section id="screen-skills" class="screen" data-screen="skills" hidden aria-label="สิ่งที่ฉันทำได้แล้ว">
-      <div class="placeholder">
-        <p class="placeholder-emoji" aria-hidden="true">⭐</p>
-        <h2 class="placeholder-title">สิ่งที่ฉันทำได้แล้ว</h2>
-        <p class="placeholder-text">เร็วๆ นี้ค่ะ<br />รายการทักษะกำลังมาในเวอร์ชันถัดไป</p>
-        <button type="button" class="btn-back" data-go="home">← กลับหน้าแรก</button>
-      </div>
+    <!-- BODY -->
+    <section id="screen-body" class="screen" data-screen="body" hidden aria-label="ขนาดตัว">
+      <header class="sub-header">
+        <button type="button" class="btn-back" data-go="home">← กลับ</button>
+        <h2>📐 ขนาดตัว (ซม.)</h2>
+      </header>
+      <form id="form-body" class="stack-form">
+        <label class="field">รอบอก
+          <input id="body-bust" inputmode="decimal" placeholder="เช่น 96" />
+        </label>
+        <label class="field">รอบเอว
+          <input id="body-waist" inputmode="decimal" placeholder="เช่น 82" />
+        </label>
+        <label class="field">รอบสะโพก
+          <input id="body-hip" inputmode="decimal" placeholder="เช่น 102" />
+        </label>
+        <label class="field">ส่วนสูง
+          <input id="body-height" inputmode="decimal" placeholder="เช่น 160" />
+        </label>
+        <label class="field">โน้ตเพิ่ม
+          <textarea id="body-notes" rows="3" maxlength="400" placeholder="เช่น ความยาวแขน / ความยาวกระโปรง"></textarea>
+        </label>
+        <button type="submit" class="btn-primary-block">บันทึกขนาดตัว</button>
+        <p id="body-msg" class="form-msg" role="status"></p>
+        <p id="body-updated" class="muted"></p>
+      </form>
     </section>
   </div>
-
-  <script src="app.js"></script>
+  <script src="schema.js?v=companion1"></script>
+  <script src="app.js?v=companion1"></script>
 </body>
 </html>
