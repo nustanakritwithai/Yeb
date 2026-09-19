@@ -124,6 +124,21 @@
    * Short diagnosis: category -> questions -> maps to problem id
    * clothes: where? + look? → problem
    */
+  /** Short job cards — tap → wizard (minutes estimate) */
+  var QUICK_JOBS = [
+    { id: 'q-seam', emoji: '🧵', title: 'เย็บตะเข็บเปิด', minutes: 5, level: 'green', categoryId: 'clothes', problemId: 'seam-open', hint: 'ด้ายขาดตามตะเข็บ' },
+    { id: 'q-button', emoji: '🔘', title: 'ติดกระดุมใหม่', minutes: 8, level: 'green', categoryId: 'button', problemId: 'button-sew', hint: 'กระดุมหลุดหรือหาย' },
+    { id: 'q-hem', emoji: '📏', title: 'เก็บชายหลุด', minutes: 10, level: 'green', categoryId: 'clothes', problemId: 'hem-loose', hint: 'ชายเสื้อ/กางเกงหลุด' },
+    { id: 'q-pants', emoji: '👖', title: 'ขาสั้นลง', minutes: 25, level: 'yellow', categoryId: 'pants', problemId: 'too-long', hint: 'กางเกงยาวเกิน' },
+    { id: 'q-hole', emoji: '🩹', title: 'ปะรูเล็ก', minutes: 15, level: 'yellow', categoryId: 'clothes', problemId: 'small-hole', hint: 'รูเล็กกลางผ้า' },
+    { id: 'q-zipper', emoji: '🤐', title: 'ใส่หัวซิปกลับ', minutes: 12, level: 'yellow', categoryId: 'zipper', problemId: 'zipper-off', hint: 'หัวซิปหลุดจากฟัน' },
+    { id: 'q-elastic', emoji: '🪢', title: 'เปลี่ยนยางเอว', minutes: 20, level: 'yellow', categoryId: 'pants', problemId: 'elastic', hint: 'เอวยางยืดหลวม' },
+    { id: 'q-curtain', emoji: '🪟', title: 'เก็บชายม่าน', minutes: 30, level: 'green', categoryId: 'curtain', problemId: 'curtain-hem', hint: 'ม่านยาวหรือชายหลุด' },
+    { id: 'q-zipper-new', emoji: '🔧', title: 'เปลี่ยนซิปใหม่', minutes: 45, level: 'red', categoryId: 'zipper', problemId: 'zipper-replace', hint: 'ฟันพังหรือหัวเสีย' },
+    { id: 'q-strap', emoji: '👜', title: 'เย็บสายกระเป๋า', minutes: 20, level: 'yellow', categoryId: 'bag', problemId: 'bag-strap', hint: 'สายหลุดจากตัวถุง' }
+  ];
+
+
   var DIAGNOSIS = {
     clothes: {
       title: 'เช็กก่อนซ่อมเสื้อ',
@@ -192,7 +207,129 @@
         'waist': 'elastic',
         'seam': 'seam-open'
       }
+    },
+    button: {
+      title: 'เช็กก่อนติดกระดุม',
+      questions: [
+        {
+          id: 'kind',
+          text: 'กระดุมเป็นยังไง?',
+          options: [
+            { id: 'gone', label: 'หลุด / หาย' },
+            { id: 'loose', label: 'ยังติดแต่โยก' },
+            { id: 'wrong', label: 'ติดผิดตำแหน่ง' }
+          ]
+        }
+      ],
+      map: {
+        'gone': 'button-sew',
+        'loose': 'button-sew',
+        'wrong': 'button-sew'
+      }
+    },
+    zipper: {
+      title: 'เช็กก่อนซ่อมซิป',
+      questions: [
+        {
+          id: 'where',
+          text: 'เสียตรงไหน?',
+          options: [
+            { id: 'slider', label: 'หัวซิปหลุดจากฟัน' },
+            { id: 'teeth', label: 'ฟันหัก / บิด' },
+            { id: 'stuck', label: 'รูดไม่ขึ้น' },
+            { id: 'tape', label: 'แถบซิปขาดจากผ้า' }
+          ]
+        },
+        {
+          id: 'look',
+          text: 'หน้าตาเป็นยังไง?',
+          options: [
+            { id: 'slider-ok', label: 'หัวยังดี แค่หลุด' },
+            { id: 'broken', label: 'หัวหรือฟันพัง' },
+            { id: 'fabric', label: 'ผ้าแยกจากซิป' }
+          ]
+        }
+      ],
+      map: {
+        'slider|slider-ok': 'zipper-off',
+        'slider|broken': 'zipper-replace',
+        'slider|fabric': 'zipper-off',
+        'teeth|slider-ok': 'zipper-replace',
+        'teeth|broken': 'zipper-replace',
+        'teeth|fabric': 'zipper-replace',
+        'stuck|slider-ok': 'zipper-off',
+        'stuck|broken': 'zipper-replace',
+        'stuck|fabric': 'zipper-replace',
+        'tape|slider-ok': 'zipper-replace',
+        'tape|broken': 'zipper-replace',
+        'tape|fabric': 'zipper-replace'
+      }
+    },
+    bedding: {
+      title: 'เช็กก่อนซ่อมเครื่องนอน',
+      questions: [
+        {
+          id: 'item',
+          text: 'ของชิ้นไหน?',
+          options: [
+            { id: 'pillow', label: 'ปลอกหมอน' },
+            { id: 'sheet', label: 'ผ้าปู / ปลอกผ้านวม' }
+          ]
+        },
+        {
+          id: 'look',
+          text: 'เสียแบบไหน?',
+          options: [
+            { id: 'seam', label: 'ตะเข็บหลุด' },
+            { id: 'hole', label: 'ฉีก / เป็นรู' },
+            { id: 'thin', label: 'ผ้าบางจนขาด' }
+          ]
+        }
+      ],
+      map: {
+        'pillow|seam': 'pillow-seam',
+        'pillow|hole': 'sheet-tear',
+        'pillow|thin': 'sheet-tear',
+        'sheet|seam': 'pillow-seam',
+        'sheet|hole': 'sheet-tear',
+        'sheet|thin': 'sheet-tear'
+      }
+    },
+    curtain: {
+      title: 'เช็กก่อนซ่อมม่าน',
+      questions: [
+        {
+          id: 'where',
+          text: 'ตรงไหน?',
+          options: [
+            { id: 'hem', label: 'ชายม่าน' },
+            { id: 'loop', label: 'หู / ห่วงแขวน' },
+            { id: 'side', label: 'ตะเข็บข้าง' }
+          ]
+        },
+        {
+          id: 'look',
+          text: 'อยากได้อะไร?',
+          options: [
+            { id: 'shorten', label: 'สั้นลง / ยาวขึ้น' },
+            { id: 'fix', label: 'เย็บจุดที่หลุด' },
+            { id: 'tear', label: 'ผ้าฉีกเล็กน้อย' }
+          ]
+        }
+      ],
+      map: {
+        'hem|shorten': 'curtain-hem',
+        'hem|fix': 'curtain-hem',
+        'hem|tear': 'curtain-hem',
+        'loop|shorten': 'curtain-loop',
+        'loop|fix': 'curtain-loop',
+        'loop|tear': 'curtain-loop',
+        'side|shorten': 'curtain-hem',
+        'side|fix': 'curtain-loop',
+        'side|tear': 'curtain-loop'
+      }
     }
+
   };
 
   global.YebRepairsData = {
@@ -200,6 +337,7 @@
     PROBLEMS: PROBLEMS,
     LEVEL: LEVEL,
     WIZARDS: WIZARDS,
-    DIAGNOSIS: DIAGNOSIS
+    DIAGNOSIS: DIAGNOSIS,
+    QUICK_JOBS: QUICK_JOBS
   };
 })(typeof window !== 'undefined' ? window : globalThis);

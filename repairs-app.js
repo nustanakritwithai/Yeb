@@ -1,4 +1,4 @@
-/* Home-repair UI V0.3.1 — diagnose + before/after + deep history */
+/* Home-repair UI V0.4 — diagnose + before/after + deep history */
 (function () {
   'use strict';
 
@@ -105,6 +105,47 @@
       if (probs[i].id === problemId) return probs[i];
     }
     return null;
+  }
+
+  
+  function renderQuickJobs() {
+    var box = $('repair-quick-list');
+    if (!box) return;
+    var jobs = YebRepairsData.QUICK_JOBS || [];
+    var html = '';
+    for (var i = 0; i < jobs.length; i++) {
+      var j = jobs[i];
+      var L = (YebRepairsData.LEVEL && YebRepairsData.LEVEL[j.level]) || { emoji: '🟢', label: '' };
+      html +=
+        '<button type="button" class="quick-card level-' +
+        j.level +
+        '" data-quick-job="' +
+        j.id +
+        '"><span class="quick-emoji">' +
+        j.emoji +
+        '</span><span class="quick-title">' +
+        escapeHtml(j.title) +
+        '</span><span class="quick-meta">' +
+        L.emoji +
+        ' · ≈' +
+        j.minutes +
+        ' นาที</span><span class="quick-hint">' +
+        escapeHtml(j.hint || '') +
+        '</span></button>';
+    }
+    box.innerHTML = html;
+  }
+
+  function startQuickJob(jobId) {
+    var jobs = YebRepairsData.QUICK_JOBS || [];
+    var job = null;
+    for (var i = 0; i < jobs.length; i++) {
+      if (jobs[i].id === jobId) job = jobs[i];
+    }
+    if (!job) return;
+    state.categoryId = job.categoryId;
+    state.diagAnswers = { source: 'quick', quickId: job.id };
+    startWizard(job.problemId, state.diagAnswers);
   }
 
   function renderCategories() {
@@ -418,10 +459,12 @@
       console.warn('repair deps missing');
       return;
     }
+    renderQuickJobs();
     renderCategories();
 
     document.addEventListener('click', function (ev) {
       if (ev.target.closest('[data-go="repair"]')) {
+        renderQuickJobs();
         renderCategories();
         showScreen('repair');
         return;
@@ -429,6 +472,11 @@
       if (ev.target.closest('[data-go="repair-history"]')) {
         renderHistory();
         showScreen('repair-history');
+        return;
+      }
+      var qj = ev.target.closest('[data-quick-job]');
+      if (qj) {
+        startQuickJob(qj.getAttribute('data-quick-job'));
         return;
       }
       var cat = ev.target.closest('[data-repair-cat]');

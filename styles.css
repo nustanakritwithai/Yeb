@@ -678,3 +678,17 @@ button {
 .photo-compare img{width:100%;border-radius:12px;object-fit:cover;max-height:180px}
 .photo-compare figcaption{text-align:center;font-weight:700;margin-top:4px}
 .photo-row{display:flex;flex-wrap:wrap;gap:10px;align-items:center}
+
+/* V0.4 quick repair library */
+.section-label{font-size:1.05rem;font-weight:700;margin:1rem 0 .5rem;color:#5a3d32}
+.quick-grid{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-bottom:1rem}
+.quick-card{display:flex;flex-direction:column;align-items:flex-start;gap:4px;padding:12px;border-radius:16px;border:2px solid #e8d5c8;background:#fffaf6;text-align:left;cursor:pointer;min-height:108px;font:inherit}
+.quick-card:active{transform:scale(.98)}
+.quick-card.level-green{border-color:#7cbc6e;background:#f3faf0}
+.quick-card.level-yellow{border-color:#e0b84a;background:#fff9ea}
+.quick-card.level-red{border-color:#d66a5a;background:#fff1ee}
+.quick-emoji{font-size:1.5rem}
+.quick-title{font-weight:700;font-size:1rem;color:#3d2a22}
+.quick-meta{font-size:.85rem;color:#6b5348}
+.quick-hint{font-size:.8rem;color:#8a6f62}
+@media (max-width:360px){.quick-grid{grid-template-columns:1fr}}
