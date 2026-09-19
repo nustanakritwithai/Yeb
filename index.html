@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html lang="th">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+  <meta name="theme-color" content="#f7e8df" />
+  <meta name="description" content="เพื่อนหัดเย็บ — เพื่อนคู่ใจคุณแม่มือใหม่หัดเย็บผ้า" />
+  <title>เพื่อนหัดเย็บ</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Sarabun:wght@400;500;600;700&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="styles.css" />
+</head>
+<body>
+  <div id="app" class="app">
+    <!-- หน้าแรก -->
+    <section id="screen-home" class="screen is-active" data-screen="home" aria-label="หน้าแรก">
+      <header class="home-header">
+        <p class="home-kicker">ยินดีต้อนรับค่ะ</p>
+        <h1 class="home-title">เพื่อนหัดเย็บ</h1>
+        <p class="home-subtitle">เพื่อนคู่ใจคุณแม่มือใหม่<br />หัดเย็บผ้าทีละนิด ไม่ยากเลย</p>
+      </header>
+
+      <nav class="home-nav" aria-label="เมนูหลัก">
+        <button type="button" class="big-btn" data-go="learn">
+          <span class="big-btn-emoji" aria-hidden="true">🌱</span>
+          <span class="big-btn-label">เริ่มเรียนเย็บผ้า</span>
+          <span class="big-btn-hint">เรียนทีละขั้น ง่ายๆ</span>
+        </button>
+
+        <button type="button" class="big-btn" data-go="today">
+          <span class="big-btn-emoji" aria-hidden="true">👜</span>
+          <span class="big-btn-label">วันนี้ทำอะไรดี</span>
+          <span class="big-btn-hint">เลือกงานสั้นๆ ทำได้เลย</span>
+        </button>
+
+        <button type="button" class="big-btn" data-go="help">
+          <span class="big-btn-emoji" aria-hidden="true">🆘</span>
+          <span class="big-btn-label">มีปัญหา ช่วยหน่อย</span>
+          <span class="big-btn-hint">เส้นขาด เข็มติด ไหมพัน…</span>
+        </button>
+
+        <button type="button" class="big-btn" data-go="skills">
+          <span class="big-btn-emoji" aria-hidden="true">⭐</span>
+          <span class="big-btn-label">สิ่งที่ฉันทำได้แล้ว</span>
+          <span class="big-btn-hint">เก็บความภูมิใจไว้ที่นี่</span>
+        </button>
+      </nav>
+
+      <footer class="home-footer">
+        <p>เวอร์ชัน 0.1 · ใช้ได้ทันที ไม่ต้องสมัคร</p>
+      </footer>
+    </section>
+
+    <!-- เริ่มเรียน -->
+    <section id="screen-learn" class="screen" data-screen="learn" hidden aria-label="เริ่มเรียนเย็บผ้า">
+      <div class="placeholder">
+        <p class="placeholder-emoji" aria-hidden="true">🌱</p>
+        <h2 class="placeholder-title">เริ่มเรียนเย็บผ้า</h2>
+        <p class="placeholder-text">เร็วๆ นี้ค่ะ<br />บทเรียนทีละขั้นกำลังมาในเวอร์ชันถัดไป</p>
+        <button type="button" class="btn-back" data-go="home">← กลับหน้าแรก</button>
+      </div>
+    </section>
+
+    <!-- วันนี้ทำอะไรดี -->
+    <section id="screen-today" class="screen" data-screen="today" hidden aria-label="วันนี้ทำอะไรดี">
+      <div class="placeholder">
+        <p class="placeholder-emoji" aria-hidden="true">👜</p>
+        <h2 class="placeholder-title">วันนี้ทำอะไรดี</h2>
+        <p class="placeholder-text">เร็วๆ นี้ค่ะ<br />ไอเดียงานสั้นๆ กำลังมาในเวอร์ชันถัดไป</p>
+        <button type="button" class="btn-back" data-go="home">← กลับหน้าแรก</button>
+      </div>
+    </section>
+
+    <!-- มีปัญหา -->
+    <section id="screen-help" class="screen" data-screen="help" hidden aria-label="มีปัญหา ช่วยหน่อย">
+      <div class="placeholder">
+        <p class="placeholder-emoji" aria-hidden="true">🆘</p>
+        <h2 class="placeholder-title">มีปัญหา ช่วยหน่อย</h2>
+        <p class="placeholder-text">เร็วๆ นี้ค่ะ<br />คำตอบปัญหาเย็บผ้ากำลังมาในเวอร์ชันถัดไป</p>
+        <button type="button" class="btn-back" data-go="home">← กลับหน้าแรก</button>
+      </div>
+    </section>
+
+    <!-- สิ่งที่ทำได้แล้ว -->
+    <section id="screen-skills" class="screen" data-screen="skills" hidden aria-label="สิ่งที่ฉันทำได้แล้ว">
+      <div class="placeholder">
+        <p class="placeholder-emoji" aria-hidden="true">⭐</p>
+        <h2 class="placeholder-title">สิ่งที่ฉันทำได้แล้ว</h2>
+        <p class="placeholder-text">เร็วๆ นี้ค่ะ<br />รายการทักษะกำลังมาในเวอร์ชันถัดไป</p>
+        <button type="button" class="btn-back" data-go="home">← กลับหน้าแรก</button>
+      </div>
+    </section>
+  </div>
+
+  <script src="app.js"></script>
+</body>
+</html>

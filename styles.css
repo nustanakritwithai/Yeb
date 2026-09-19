@@ -1,0 +1,250 @@
+/* เพื่อนหัดเย็บ V0.1 — mobile-first, ปุ่มใหญ่, อ่านง่าย */
+
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
+:root {
+  --bg: #f7e8df;
+  --bg-soft: #fff9f5;
+  --card: #ffffff;
+  --ink: #3b2a24;
+  --ink-soft: #6b5348;
+  --accent: #c45c4a;
+  --accent-soft: #f3d5ce;
+  --mint: #5a8f7b;
+  --mint-soft: #d8ebe3;
+  --gold: #c9a227;
+  --shadow: 0 8px 24px rgba(59, 42, 36, 0.12);
+  --radius: 20px;
+  --safe-bottom: env(safe-area-inset-bottom, 0px);
+  --safe-top: env(safe-area-inset-top, 0px);
+}
+
+html {
+  -webkit-text-size-adjust: 100%;
+}
+
+body {
+  margin: 0;
+  min-height: 100dvh;
+  font-family: "Sarabun", "Sarabun Fallback", system-ui, sans-serif;
+  font-size: 18px;
+  line-height: 1.55;
+  color: var(--ink);
+  background:
+    radial-gradient(ellipse 120% 80% at 50% -20%, #ffe8dc 0%, transparent 55%),
+    radial-gradient(ellipse 80% 50% at 100% 100%, #e8f2ee 0%, transparent 45%),
+    var(--bg);
+}
+
+button {
+  font: inherit;
+  color: inherit;
+  cursor: pointer;
+  border: none;
+  background: none;
+  -webkit-tap-highlight-color: transparent;
+}
+
+.app {
+  width: min(100%, 420px);
+  margin: 0 auto;
+  min-height: 100dvh;
+  padding: calc(20px + var(--safe-top)) 18px calc(28px + var(--safe-bottom));
+}
+
+.screen {
+  display: none;
+  animation: fade-in 0.28s ease;
+}
+
+.screen.is-active {
+  display: block;
+}
+
+@keyframes fade-in {
+  from { opacity: 0; transform: translateY(6px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+
+/* —— หน้าแรก —— */
+
+.home-header {
+  text-align: center;
+  padding: 12px 8px 28px;
+}
+
+.home-kicker {
+  margin: 0 0 6px;
+  font-size: 0.95rem;
+  font-weight: 500;
+  color: var(--mint);
+  letter-spacing: 0.02em;
+}
+
+.home-title {
+  margin: 0 0 10px;
+  font-size: clamp(1.85rem, 7vw, 2.25rem);
+  font-weight: 700;
+  letter-spacing: -0.02em;
+  color: var(--ink);
+}
+
+.home-subtitle {
+  margin: 0;
+  font-size: 1.05rem;
+  color: var(--ink-soft);
+  font-weight: 400;
+}
+
+.home-nav {
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+}
+
+.big-btn {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 4px;
+  width: 100%;
+  padding: 22px 22px 20px;
+  text-align: left;
+  background: var(--card);
+  border-radius: var(--radius);
+  box-shadow: var(--shadow);
+  border: 2px solid transparent;
+  transition: transform 0.12s ease, border-color 0.12s ease, box-shadow 0.12s ease;
+}
+
+.big-btn:hover {
+  border-color: var(--accent-soft);
+  box-shadow: 0 10px 28px rgba(59, 42, 36, 0.16);
+}
+
+.big-btn:active {
+  transform: scale(0.98);
+}
+
+.big-btn:focus-visible {
+  outline: 3px solid var(--accent);
+  outline-offset: 3px;
+}
+
+.big-btn-emoji {
+  font-size: 2.1rem;
+  line-height: 1;
+  margin-bottom: 6px;
+}
+
+.big-btn-label {
+  font-size: 1.35rem;
+  font-weight: 700;
+  line-height: 1.3;
+  color: var(--ink);
+}
+
+.big-btn-hint {
+  font-size: 0.95rem;
+  font-weight: 400;
+  color: var(--ink-soft);
+}
+
+.home-footer {
+  margin-top: 28px;
+  text-align: center;
+}
+
+.home-footer p {
+  margin: 0;
+  font-size: 0.85rem;
+  color: var(--ink-soft);
+  opacity: 0.85;
+}
+
+/* —— หน้า placeholder —— */
+
+.placeholder {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+  padding: 40px 12px 24px;
+  min-height: calc(100dvh - 80px);
+}
+
+.placeholder-emoji {
+  margin: 0 0 12px;
+  font-size: 3.2rem;
+  line-height: 1;
+}
+
+.placeholder-title {
+  margin: 0 0 14px;
+  font-size: 1.6rem;
+  font-weight: 700;
+}
+
+.placeholder-text {
+  margin: 0 0 36px;
+  font-size: 1.15rem;
+  color: var(--ink-soft);
+  max-width: 16em;
+}
+
+.btn-back {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 64px;
+  min-width: min(100%, 280px);
+  padding: 16px 28px;
+  font-size: 1.25rem;
+  font-weight: 700;
+  color: #fff;
+  background: var(--accent);
+  border-radius: 999px;
+  box-shadow: 0 6px 18px rgba(196, 92, 74, 0.35);
+  transition: transform 0.12s ease, background 0.12s ease;
+}
+
+.btn-back:hover {
+  background: #b04e3e;
+}
+
+.btn-back:active {
+  transform: scale(0.97);
+}
+
+.btn-back:focus-visible {
+  outline: 3px solid var(--ink);
+  outline-offset: 3px;
+}
+
+/* จอใหญ่ขึ้นนิด — ยังคงมือถือเป็นหลัก */
+@media (min-width: 480px) {
+  .app {
+    padding-top: calc(28px + var(--safe-top));
+  }
+
+  .big-btn {
+    padding: 24px 26px 22px;
+  }
+
+  .big-btn-label {
+    font-size: 1.4rem;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .screen,
+  .big-btn,
+  .btn-back {
+    animation: none;
+    transition: none;
+  }
+}
