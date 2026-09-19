@@ -11,7 +11,8 @@
     patterns: 'yeb.patterns.v1',
     fabricCalc: 'yeb.fabricCalc.v1',
     builds: 'yeb.builds.v1',
-    skills: 'yeb.skills.v1'
+    skills: 'yeb.skills.v1',
+    repairs: 'yeb.repairs.v1'
   };
 
   function uid(prefix) {
@@ -345,6 +346,69 @@
     return cur;
   }
 
+
+  /* —— Home repairs (V0.3) —— */
+
+  function listRepairs() {
+    var list = readJson(KEYS.repairs, []);
+    return Array.isArray(list) ? list : [];
+  }
+
+  function saveRepairs(list) {
+    writeJson(KEYS.repairs, list || []);
+  }
+
+  function getRepair(id) {
+    var list = listRepairs();
+    for (var i = 0; i < list.length; i++) {
+      if (list[i].id === id) return list[i];
+    }
+    return null;
+  }
+
+  function upsertRepair(partial) {
+    var list = listRepairs();
+    var now = new Date().toISOString();
+    var id = partial.id || uid('repair');
+    var existing = null;
+    var idx = -1;
+    for (var i = 0; i < list.length; i++) {
+      if (list[i].id === id) {
+        existing = list[i];
+        idx = i;
+        break;
+      }
+    }
+    var row = {
+      id: id,
+      categoryId: String(partial.categoryId || (existing && existing.categoryId) || ''),
+      problemId: String(partial.problemId || (existing && existing.problemId) || ''),
+      wizardId: String(partial.wizardId || (existing && existing.wizardId) || ''),
+      title: String(partial.title || (existing && existing.title) || 'งานซ่อม'),
+      answers: partial.answers != null ? partial.answers : (existing && existing.answers) || {},
+      stepIndex: partial.stepIndex != null ? Number(partial.stepIndex) : (existing && existing.stepIndex) || 0,
+      doneSteps: partial.doneSteps != null ? partial.doneSteps : (existing && existing.doneSteps) || [],
+      photoBefore: partial.photoBefore !== undefined ? partial.photoBefore : (existing && existing.photoBefore) || null,
+      photoAfter: partial.photoAfter !== undefined ? partial.photoAfter : (existing && existing.photoAfter) || null,
+      tipNext: String(partial.tipNext != null ? partial.tipNext : (existing && existing.tipNext) || ''),
+      completedAt: partial.completedAt !== undefined ? partial.completedAt : (existing && existing.completedAt) || null,
+      createdAt: existing && existing.createdAt ? existing.createdAt : now,
+      updatedAt: now
+    };
+    if (idx >= 0) list[idx] = row;
+    else list.unshift(row);
+    saveRepairs(list);
+    return row;
+  }
+
+  function deleteRepair(id) {
+    saveRepairs(
+      listRepairs().filter(function (r) {
+        return r.id !== id;
+      })
+    );
+  }
+
   global.YebStore = {
     KEYS: KEYS,
     uid: uid,
@@ -368,6 +432,10 @@
     saveSkills: saveSkills,
     bumpSkill: bumpSkill,
     bumpSkills: bumpSkills,
-    DEFAULT_SKILLS: DEFAULT_SKILLS
+    DEFAULT_SKILLS: DEFAULT_SKILLS,
+    listRepairs: listRepairs,
+    getRepair: getRepair,
+    upsertRepair: upsertRepair,
+    deleteRepair: deleteRepair
   };
 })(typeof window !== 'undefined' ? window : globalThis);

@@ -6,12 +6,12 @@
   <meta name="theme-color" content="#f7e8df" />
   <meta name="apple-mobile-web-app-capable" content="yes" />
   <meta name="apple-mobile-web-app-title" content="เพื่อนเย็บ" />
-  <meta name="description" content="ผู้ช่วยฝึกฝีมือเย็บผ้า — สมุดงาน แพทเทิร์น คำนวณผ้า ขั้นตอน แก้ปัญหา" />
+  <meta name="description" content="ผู้ช่วยเย็บซ่อมบ้านเย็บผ้า — สมุดงาน แพทเทิร์น คำนวณผ้า ขั้นตอน แก้ปัญหา" />
   <title>เพื่อนเย็บ</title>
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link href="https://fonts.googleapis.com/css2?family=Sarabun:wght@400;500;600;700&display=swap" rel="stylesheet" />
-  <link rel="stylesheet" href="styles.css?v=core1" />
+  <link rel="stylesheet" href="styles.css?v=repair1" />
 </head>
 <body>
   <div id="app" class="app">
@@ -20,9 +20,14 @@
       <header class="home-header">
         <p class="home-kicker">ผู้ช่วยฝึกฝีมือ</p>
         <h1 class="home-title">เพื่อนเย็บ</h1>
-        <p class="home-subtitle">เก็บงาน · คำนวณผ้า · ทำทีละขั้น · แก้ปัญหา<br />ไม่ใช่ตำราเรียน</p>
+        <p class="home-subtitle">ซ่อมของใช้ในบ้านเป็นหลัก<br />สมุดงาน / แพทเทิร์น / ฝึกฝีมือ = เมนูรอง</p>
       </header>
       <nav class="home-nav" aria-label="เมนูหลัก">
+        <button type="button" class="big-btn big-btn-repair" data-go="repair">
+          <span class="big-btn-emoji" aria-hidden="true">🔧</span>
+          <span class="big-btn-label">ซ่อมอะไรวันนี้?</span>
+          <span class="big-btn-hint">เริ่มจากของที่เสีย — ทีละขั้น</span>
+        </button>
         <button type="button" class="big-btn" data-go="projects">
           <span class="big-btn-emoji" aria-hidden="true">📚</span>
           <span class="big-btn-label">สมุดงาน</span>
@@ -59,7 +64,7 @@
           <span class="big-btn-hint">ดูว่าฝึกอะไรไปแล้ว</span>
         </button>
       </nav>
-      <footer class="home-footer"><p>V0.2 · เก็บในเครื่องนี้ · ไม่มี AI/ล็อกอิน</p></footer>
+      <footer class="home-footer"><p>V0.3 · ซ่อมบ้าน · ไม่มี AI</p></footer>
     </section>
 
     <!-- PROJECTS (existing) -->
@@ -264,8 +269,76 @@
         <button type="button" class="btn-primary-block" id="btn-zipper-bump">＋ บันทึกว่าฝึกซิป 1 ครั้ง</button>
       </div>
     </section>
+
+    <!-- REPAIR HOME -->
+    <section id="screen-repair" class="screen" data-screen="repair" hidden aria-label="ซ่อมบ้าน">
+      <header class="sub-header">
+        <button type="button" class="btn-back" data-go="home">← กลับ</button>
+        <h2>🔧 ซ่อมอะไรวันนี้?</h2>
+      </header>
+      <p class="lead-plain">เลือกของที่เสียก่อน — ไม่ต้องรู้ชื่อเทคนิค</p>
+      <div id="repair-categories" class="home-nav"></div>
+      <button type="button" class="btn-secondary-block" data-go="repair-history">ประวัติงานซ่อม</button>
+    </section>
+
+    <section id="screen-repair-problems" class="screen" data-screen="repair-problems" hidden>
+      <header class="sub-header">
+        <button type="button" class="btn-back" id="btn-repair-back-cat">← เลือกของใหม่</button>
+        <h2 id="repair-problems-title">ปัญหา</h2>
+      </header>
+      <div id="repair-problems" class="home-nav"></div>
+    </section>
+
+    <section id="screen-repair-wizard" class="screen" data-screen="repair-wizard" hidden>
+      <header class="sub-header">
+        <button type="button" class="btn-back" id="btn-repair-wiz-back">← กลับ</button>
+        <h2 id="repair-wiz-heading">ขั้น</h2>
+      </header>
+      <div class="result-card">
+        <p id="repair-wiz-level" class="muted"></p>
+        <h3 id="repair-wiz-title"></h3>
+        <p id="repair-wiz-body" class="build-body"></p>
+        <label class="check-row">
+          <input type="checkbox" id="repair-wiz-done" />
+          <span>ทำขั้นนี้แล้ว</span>
+        </label>
+        <div class="field">
+          <span class="field-label">รูปก่อนซ่อม (ไม่บังคับ)</span>
+          <label class="btn-photo">📷 เลือกภาพ
+            <input type="file" id="repair-photo-before" accept="image/*" capture="environment" hidden />
+          </label>
+          <img id="repair-photo-before-preview" class="photo-preview" alt="" hidden />
+        </div>
+        <div class="field" id="repair-after-wrap" hidden>
+          <span class="field-label">รูปหลังซ่อม (ไม่บังคับ)</span>
+          <label class="btn-photo">📷 เลือกภาพ
+            <input type="file" id="repair-photo-after" accept="image/*" capture="environment" hidden />
+          </label>
+          <img id="repair-photo-after-preview" class="photo-preview" alt="" hidden />
+        </div>
+        <label class="field" id="repair-tip-wrap" hidden>ครั้งหน้าจำไว้
+          <textarea id="repair-tip-next" rows="2" maxlength="300" placeholder="เช่น พับ 2 ซม. × 2 พอดี"></textarea>
+        </label>
+        <div class="row-btns">
+          <button type="button" class="btn-secondary-block" id="btn-repair-prev">ขั้นก่อน</button>
+          <button type="button" class="btn-primary-block" id="btn-repair-next">ขั้นถัดไป</button>
+        </div>
+        <button type="button" class="btn-primary-block" id="btn-repair-finish" hidden>เสร็จงานซ่อม ✓</button>
+        <p id="repair-wiz-msg" class="form-msg" role="status"></p>
+      </div>
+    </section>
+
+    <section id="screen-repair-history" class="screen" data-screen="repair-history" hidden>
+      <header class="sub-header">
+        <button type="button" class="btn-back" data-go="repair">← กลับ</button>
+        <h2>ประวัติงานซ่อม</h2>
+      </header>
+      <div id="repair-history-list" class="project-list"></div>
+    </section>
   </div>
-  <script src="schema.js?v=core1"></script>
-  <script src="app.js?v=core1"></script>
+  <script src="schema.js?v=repair1"></script>
+  <script src="repairs-data.js?v=repair1"></script>
+  <script src="repairs-app.js?v=repair1"></script>
+  <script src="app.js?v=repair1"></script>
 </body>
 </html>
