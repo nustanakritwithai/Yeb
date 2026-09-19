@@ -119,10 +119,87 @@
     ]
   };
 
+
+  /**
+   * Short diagnosis: category -> questions -> maps to problem id
+   * clothes: where? + look? → problem
+   */
+  var DIAGNOSIS = {
+    clothes: {
+      title: 'เช็กก่อนซ่อมเสื้อ',
+      questions: [
+        {
+          id: 'where',
+          text: 'ขาดตรงไหน?',
+          options: [
+            { id: 'seam', label: 'ตะเข็บ' },
+            { id: 'middle', label: 'กลางผ้า' },
+            { id: 'armpit', label: 'รักแร้' },
+            { id: 'sleeve', label: 'แขน' },
+            { id: 'hem', label: 'ชาย' }
+          ]
+        },
+        {
+          id: 'look',
+          text: 'หน้าตาเป็นยังไง?',
+          options: [
+            { id: 'thread-out', label: 'ตะเข็บหลุด / ด้ายขาด' },
+            { id: 'hole', label: 'เป็นรู' },
+            { id: 'tear', label: 'ผ้าฉีก' },
+            { id: 'thin', label: 'ผ้าบางจนขาด' }
+          ]
+        }
+      ],
+      /** key = where|look → problemId */
+      map: {
+        'seam|thread-out': 'seam-open',
+        'seam|hole': 'seam-open',
+        'seam|tear': 'seam-open',
+        'seam|thin': 'small-hole',
+        'middle|hole': 'small-hole',
+        'middle|tear': 'small-hole',
+        'middle|thin': 'small-hole',
+        'middle|thread-out': 'small-hole',
+        'armpit|thread-out': 'seam-open',
+        'armpit|hole': 'small-hole',
+        'armpit|tear': 'small-hole',
+        'armpit|thin': 'small-hole',
+        'sleeve|thread-out': 'seam-open',
+        'sleeve|hole': 'small-hole',
+        'sleeve|tear': 'small-hole',
+        'sleeve|thin': 'small-hole',
+        'hem|thread-out': 'hem-loose',
+        'hem|hole': 'hem-loose',
+        'hem|tear': 'hem-loose',
+        'hem|thin': 'hem-loose'
+      }
+    },
+    pants: {
+      title: 'เช็กก่อนซ่อมกางเกง',
+      questions: [
+        {
+          id: 'kind',
+          text: 'อยากแก้อะไร?',
+          options: [
+            { id: 'long', label: 'ขายาวเกินไป' },
+            { id: 'waist', label: 'เอวยางยืดหลวม/ขาด' },
+            { id: 'seam', label: 'ตะเข็บปริ' }
+          ]
+        }
+      ],
+      map: {
+        'long': 'too-long',
+        'waist': 'elastic',
+        'seam': 'seam-open'
+      }
+    }
+  };
+
   global.YebRepairsData = {
     CATEGORIES: CATEGORIES,
     PROBLEMS: PROBLEMS,
     LEVEL: LEVEL,
-    WIZARDS: WIZARDS
+    WIZARDS: WIZARDS,
+    DIAGNOSIS: DIAGNOSIS
   };
 })(typeof window !== 'undefined' ? window : globalThis);

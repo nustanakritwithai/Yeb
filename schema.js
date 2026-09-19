@@ -391,6 +391,8 @@
       photoBefore: partial.photoBefore !== undefined ? partial.photoBefore : (existing && existing.photoBefore) || null,
       photoAfter: partial.photoAfter !== undefined ? partial.photoAfter : (existing && existing.photoAfter) || null,
       tipNext: String(partial.tipNext != null ? partial.tipNext : (existing && existing.tipNext) || ''),
+      methodSummary: String(partial.methodSummary != null ? partial.methodSummary : (existing && existing.methodSummary) || ''),
+      diagnosis: partial.diagnosis != null ? partial.diagnosis : (existing && existing.diagnosis) || {},
       completedAt: partial.completedAt !== undefined ? partial.completedAt : (existing && existing.completedAt) || null,
       createdAt: existing && existing.createdAt ? existing.createdAt : now,
       updatedAt: now

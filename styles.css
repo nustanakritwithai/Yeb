@@ -673,3 +673,8 @@ button {
   margin:0 0 12px;
   line-height:1.45;
 }
+.photo-emphasis{outline:3px solid #c45c4a;outline-offset:4px;border-radius:16px;padding:8px}
+.photo-compare{display:grid;gap:12px;grid-template-columns:1fr 1fr;margin-top:12px}
+.photo-compare img{width:100%;border-radius:12px;object-fit:cover;max-height:180px}
+.photo-compare figcaption{text-align:center;font-weight:700;margin-top:4px}
+.photo-row{display:flex;flex-wrap:wrap;gap:10px;align-items:center}

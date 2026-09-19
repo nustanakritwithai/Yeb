@@ -11,7 +11,7 @@
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link href="https://fonts.googleapis.com/css2?family=Sarabun:wght@400;500;600;700&display=swap" rel="stylesheet" />
-  <link rel="stylesheet" href="styles.css?v=repair1" />
+  <link rel="stylesheet" href="styles.css?v=repair31" />
 </head>
 <body>
   <div id="app" class="app">
@@ -281,6 +281,16 @@
       <button type="button" class="btn-secondary-block" data-go="repair-history">ประวัติงานซ่อม</button>
     </section>
 
+
+    <section id="screen-repair-diagnose" class="screen" data-screen="repair-diagnose" hidden>
+      <header class="sub-header">
+        <button type="button" class="btn-back" id="btn-repair-diag-back">← กลับ</button>
+        <h2 id="repair-diag-title">เช็กก่อนซ่อม</h2>
+      </header>
+      <p id="repair-diag-q" class="lead-plain"></p>
+      <div id="repair-diag-options" class="home-nav"></div>
+      <p id="repair-diag-hint" class="muted"></p>
+    </section>
     <section id="screen-repair-problems" class="screen" data-screen="repair-problems" hidden>
       <header class="sub-header">
         <button type="button" class="btn-back" id="btn-repair-back-cat">← เลือกของใหม่</button>
@@ -302,21 +312,29 @@
           <input type="checkbox" id="repair-wiz-done" />
           <span>ทำขั้นนี้แล้ว</span>
         </label>
-        <div class="field">
-          <span class="field-label">รูปก่อนซ่อม (ไม่บังคับ)</span>
-          <label class="btn-photo">📷 เลือกภาพ
-            <input type="file" id="repair-photo-before" accept="image/*" capture="environment" hidden />
-          </label>
+        <div class="field" id="repair-before-wrap">
+          <span class="field-label">📷 รูปก่อนซ่อม (ข้ามได้)</span>
+          <div class="photo-row">
+            <label class="btn-photo">ถ่าย / เลือก
+              <input type="file" id="repair-photo-before" accept="image/*" capture="environment" hidden />
+            </label>
+            <button type="button" class="btn-text" id="btn-skip-before">ข้าม</button>
+          </div>
           <img id="repair-photo-before-preview" class="photo-preview" alt="" hidden />
+          <p id="repair-before-status" class="muted"></p>
         </div>
         <div class="field" id="repair-after-wrap" hidden>
-          <span class="field-label">รูปหลังซ่อม (ไม่บังคับ)</span>
-          <label class="btn-photo">📷 เลือกภาพ
-            <input type="file" id="repair-photo-after" accept="image/*" capture="environment" hidden />
-          </label>
+          <span class="field-label">📷 รูปหลังซ่อม (ข้ามได้)</span>
+          <div class="photo-row">
+            <label class="btn-photo">ถ่าย / เลือก
+              <input type="file" id="repair-photo-after" accept="image/*" capture="environment" hidden />
+            </label>
+            <button type="button" class="btn-text" id="btn-skip-after">ข้าม</button>
+          </div>
           <img id="repair-photo-after-preview" class="photo-preview" alt="" hidden />
+          <p id="repair-after-status" class="muted"></p>
         </div>
-        <label class="field" id="repair-tip-wrap" hidden>ครั้งหน้าจำไว้
+        <label class="field" id="repair-tip-wrap" hidden>จำไว้รอบหน้า
           <textarea id="repair-tip-next" rows="2" maxlength="300" placeholder="เช่น พับ 2 ซม. × 2 พอดี"></textarea>
         </label>
         <div class="row-btns">
@@ -328,6 +346,14 @@
       </div>
     </section>
 
+
+    <section id="screen-repair-detail" class="screen" data-screen="repair-detail" hidden>
+      <header class="sub-header">
+        <button type="button" class="btn-back" data-go="repair-history">← ประวัติ</button>
+        <h2>รายละเอียดงานซ่อม</h2>
+      </header>
+      <div id="repair-detail-body" class="result-card"></div>
+    </section>
     <section id="screen-repair-history" class="screen" data-screen="repair-history" hidden>
       <header class="sub-header">
         <button type="button" class="btn-back" data-go="repair">← กลับ</button>
@@ -336,9 +362,9 @@
       <div id="repair-history-list" class="project-list"></div>
     </section>
   </div>
-  <script src="schema.js?v=repair1"></script>
-  <script src="repairs-data.js?v=repair1"></script>
-  <script src="repairs-app.js?v=repair1"></script>
-  <script src="app.js?v=repair1"></script>
+  <script src="schema.js?v=repair31"></script>
+  <script src="repairs-data.js?v=repair31"></script>
+  <script src="repairs-app.js?v=repair31"></script>
+  <script src="app.js?v=repair31"></script>
 </body>
 </html>
