@@ -6,12 +6,12 @@
   <meta name="theme-color" content="#f7e8df" />
   <meta name="apple-mobile-web-app-capable" content="yes" />
   <meta name="apple-mobile-web-app-title" content="เพื่อนเย็บ" />
-  <meta name="description" content="ผู้ช่วยฝึกฝีมือเย็บผ้า — สมุดงานและขนาดตัว" />
-  <title>เพื่อนเย็บ · สมุดงาน</title>
+  <meta name="description" content="ผู้ช่วยฝึกฝีมือเย็บผ้า — สมุดงาน แพทเทิร์น คำนวณผ้า ขั้นตอน แก้ปัญหา" />
+  <title>เพื่อนเย็บ</title>
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link href="https://fonts.googleapis.com/css2?family=Sarabun:wght@400;500;600;700&display=swap" rel="stylesheet" />
-  <link rel="stylesheet" href="styles.css?v=companion1" />
+  <link rel="stylesheet" href="styles.css?v=core1" />
 </head>
 <body>
   <div id="app" class="app">
@@ -20,34 +20,49 @@
       <header class="home-header">
         <p class="home-kicker">ผู้ช่วยฝึกฝีมือ</p>
         <h1 class="home-title">เพื่อนเย็บ</h1>
-        <p class="home-subtitle">เก็บงานที่ทำ · จดจุดพลาด · จำขนาดตัว<br />ไม่ใช่ตำราเรียน</p>
+        <p class="home-subtitle">เก็บงาน · คำนวณผ้า · ทำทีละขั้น · แก้ปัญหา<br />ไม่ใช่ตำราเรียน</p>
       </header>
       <nav class="home-nav" aria-label="เมนูหลัก">
         <button type="button" class="big-btn" data-go="projects">
           <span class="big-btn-emoji" aria-hidden="true">📚</span>
-          <span class="big-btn-label">สมุดงานของฉัน</span>
-          <span class="big-btn-hint">รูป + จดวิธี / จุดพลาด</span>
+          <span class="big-btn-label">สมุดงาน</span>
+          <span class="big-btn-hint">รูป + จดจุดพลาด</span>
         </button>
         <button type="button" class="big-btn" data-go="body">
           <span class="big-btn-emoji" aria-hidden="true">📐</span>
           <span class="big-btn-label">ขนาดตัว</span>
-          <span class="big-btn-hint">อก เอว สะโพก ส่วนสูง</span>
+          <span class="big-btn-hint">อก เอว สะโพก สูง</span>
         </button>
-        <button type="button" class="big-btn big-btn-muted" data-go="soon-work" disabled>
+        <button type="button" class="big-btn" data-go="patterns">
+          <span class="big-btn-emoji" aria-hidden="true">🧩</span>
+          <span class="big-btn-label">คลังแพทเทิร์น</span>
+          <span class="big-btn-hint">เก็บแบบที่ใช้บ่อย</span>
+        </button>
+        <button type="button" class="big-btn" data-go="fabric">
+          <span class="big-btn-emoji" aria-hidden="true">🧮</span>
+          <span class="big-btn-label">คำนวณผ้า</span>
+          <span class="big-btn-hint">กะเมตรจากขนาดชิ้น</span>
+        </button>
+        <button type="button" class="big-btn" data-go="builds">
           <span class="big-btn-emoji" aria-hidden="true">✂️</span>
           <span class="big-btn-label">ทำชิ้นงาน</span>
-          <span class="big-btn-hint">เร็ว ๆ นี้</span>
+          <span class="big-btn-hint">ทีละขั้น · ถุงผ้า</span>
         </button>
-        <button type="button" class="big-btn big-btn-muted" data-go="soon-help" disabled>
+        <button type="button" class="big-btn" data-go="help">
           <span class="big-btn-emoji" aria-hidden="true">🆘</span>
           <span class="big-btn-label">แก้ปัญหา</span>
-          <span class="big-btn-hint">เร็ว ๆ นี้</span>
+          <span class="big-btn-hint">ถามทีละข้อ</span>
+        </button>
+        <button type="button" class="big-btn" data-go="skills">
+          <span class="big-btn-emoji" aria-hidden="true">⭐</span>
+          <span class="big-btn-label">ทักษะของฉัน</span>
+          <span class="big-btn-hint">ดูว่าฝึกอะไรไปแล้ว</span>
         </button>
       </nav>
-      <footer class="home-footer"><p>V0.1 · ข้อมูลเก็บในเครื่องนี้เท่านั้น</p></footer>
+      <footer class="home-footer"><p>V0.2 · เก็บในเครื่องนี้ · ไม่มี AI/ล็อกอิน</p></footer>
     </section>
 
-    <!-- PROJECT LIST -->
+    <!-- PROJECTS (existing) -->
     <section id="screen-projects" class="screen" data-screen="projects" hidden aria-label="สมุดงาน">
       <header class="sub-header">
         <button type="button" class="btn-back" data-go="home">← กลับ</button>
@@ -57,7 +72,6 @@
       <div id="project-list" class="project-list" aria-live="polite"></div>
     </section>
 
-    <!-- PROJECT FORM -->
     <section id="screen-project-form" class="screen" data-screen="project-form" hidden aria-label="บันทึกงาน">
       <header class="sub-header">
         <button type="button" class="btn-back" id="btn-form-back">← กลับ</button>
@@ -66,29 +80,28 @@
       <form id="form-project" class="stack-form">
         <input type="hidden" id="project-id" value="" />
         <label class="field">ชื่องาน *
-          <input id="project-title" required maxlength="80" placeholder="เช่น เสื้อดอกไม้ / ถุงผ้าดอกเล็ก" />
+          <input id="project-title" required maxlength="80" placeholder="เช่น เสื้อดอก / ถุงผ้า" />
         </label>
         <label class="field">ผ้าที่ใช้
-          <input id="project-fabric" maxlength="80" placeholder="เช่น คอตตอน / ลินิน" />
+          <input id="project-fabric" maxlength="80" placeholder="เช่น คอตตอน" />
         </label>
         <div class="field">
           <span class="field-label">รูปผลงาน</span>
           <div class="photo-row">
-            <label class="btn-photo">
-              📷 ถ่าย / เลือกภาพ
+            <label class="btn-photo">📷 ถ่าย / เลือกภาพ
               <input type="file" id="project-photo" accept="image/*" capture="environment" hidden />
             </label>
             <button type="button" class="btn-text" id="btn-clear-photo" hidden>ลบรูป</button>
           </div>
-          <img id="project-photo-preview" class="photo-preview" alt="ตัวอย่างรูป" hidden />
+          <img id="project-photo-preview" class="photo-preview" alt="" hidden />
         </div>
-        <label class="field">ทำอย่างไร (สั้น ๆ)
-          <textarea id="project-how" rows="3" maxlength="800" placeholder="ขั้นตอนที่ใช้ หรือแพทเทิร์นที่อ้าง"></textarea>
+        <label class="field">ทำอย่างไร
+          <textarea id="project-how" rows="3" maxlength="800" placeholder="ขั้นตอน / แพทเทิร์นที่ใช้"></textarea>
         </label>
-        <label class="field">จุดที่ยังไม่ดี / พลาดตรงไหน
-          <textarea id="project-mistake" rows="3" maxlength="800" placeholder="เช่น คอเสื้อยังไม่เรียบ"></textarea>
+        <label class="field">จุดพลาด
+          <textarea id="project-mistake" rows="3" maxlength="800" placeholder="ตรงไหนยังไม่ดี"></textarea>
         </label>
-        <label class="field">ครั้งหน้าจะทำต่างยังไง ⭐
+        <label class="field">ครั้งหน้าจะทำต่างยังไง
           <textarea id="project-next" rows="3" maxlength="800" placeholder="เช่น เพิ่มไหล่ 1 ซม."></textarea>
         </label>
         <button type="submit" class="btn-primary-block">บันทึก</button>
@@ -104,28 +117,155 @@
         <h2>📐 ขนาดตัว (ซม.)</h2>
       </header>
       <form id="form-body" class="stack-form">
-        <label class="field">รอบอก
-          <input id="body-bust" inputmode="decimal" placeholder="เช่น 96" />
-        </label>
-        <label class="field">รอบเอว
-          <input id="body-waist" inputmode="decimal" placeholder="เช่น 82" />
-        </label>
-        <label class="field">รอบสะโพก
-          <input id="body-hip" inputmode="decimal" placeholder="เช่น 102" />
-        </label>
-        <label class="field">ส่วนสูง
-          <input id="body-height" inputmode="decimal" placeholder="เช่น 160" />
-        </label>
-        <label class="field">โน้ตเพิ่ม
-          <textarea id="body-notes" rows="3" maxlength="400" placeholder="เช่น ความยาวแขน / ความยาวกระโปรง"></textarea>
-        </label>
+        <label class="field">รอบอก <input id="body-bust" inputmode="decimal" /></label>
+        <label class="field">รอบเอว <input id="body-waist" inputmode="decimal" /></label>
+        <label class="field">รอบสะโพก <input id="body-hip" inputmode="decimal" /></label>
+        <label class="field">ส่วนสูง <input id="body-height" inputmode="decimal" /></label>
+        <label class="field">โน้ต <textarea id="body-notes" rows="3" maxlength="400"></textarea></label>
         <button type="submit" class="btn-primary-block">บันทึกขนาดตัว</button>
         <p id="body-msg" class="form-msg" role="status"></p>
         <p id="body-updated" class="muted"></p>
       </form>
     </section>
+
+    <!-- PATTERNS -->
+    <section id="screen-patterns" class="screen" data-screen="patterns" hidden aria-label="คลังแพทเทิร์น">
+      <header class="sub-header">
+        <button type="button" class="btn-back" data-go="home">← กลับ</button>
+        <h2>🧩 คลังแพทเทิร์น</h2>
+      </header>
+      <button type="button" class="btn-primary-block" id="btn-new-pattern">＋ เพิ่มแพทเทิร์น</button>
+      <div id="pattern-list" class="project-list"></div>
+    </section>
+
+    <section id="screen-pattern-form" class="screen" data-screen="pattern-form" hidden>
+      <header class="sub-header">
+        <button type="button" class="btn-back" id="btn-pattern-back">← กลับ</button>
+        <h2 id="pattern-form-title">แพทเทิร์น</h2>
+      </header>
+      <form id="form-pattern" class="stack-form">
+        <input type="hidden" id="pattern-id" />
+        <label class="field">ชื่อ *
+          <input id="pattern-name" required maxlength="80" placeholder="เช่น Shirt #03" />
+        </label>
+        <label class="field">หมายเหตุ
+          <textarea id="pattern-note" rows="2" maxlength="400" placeholder="ขนาดที่ใช้ / จุดปรับ"></textarea>
+        </label>
+        <label class="field">ลิงก์หรือที่เก็บแบบ
+          <textarea id="pattern-link" rows="2" maxlength="400" placeholder="โฟลเดอร์ / ลิงก์ / เลขซอง"></textarea>
+        </label>
+        <label class="field">อ้างอิงขนาดตัว
+          <input id="pattern-body-ref" maxlength="120" placeholder="เช่น ตามขนาดตัวล่าสุด +1 ซม." />
+        </label>
+        <button type="submit" class="btn-primary-block">บันทึก</button>
+        <button type="button" class="btn-danger-block" id="btn-delete-pattern" hidden>ลบ</button>
+        <p id="pattern-msg" class="form-msg" role="status"></p>
+      </form>
+    </section>
+
+    <!-- FABRIC CALC -->
+    <section id="screen-fabric" class="screen" data-screen="fabric" hidden aria-label="คำนวณผ้า">
+      <header class="sub-header">
+        <button type="button" class="btn-back" data-go="home">← กลับ</button>
+        <h2>🧮 คำนวณผ้า</h2>
+      </header>
+      <form id="form-fabric" class="stack-form">
+        <label class="field">ชนิดงาน
+          <select id="fabric-type">
+            <option value="bag">ถุงผ้า / โท้ท</option>
+            <option value="pillow">ปลอกหมอน</option>
+            <option value="skirt">กระโปรงง่าย</option>
+            <option value="custom">กำหนดเอง (ยาว×กว้าง)</option>
+          </select>
+        </label>
+        <label class="field">ขนาดโดยประมาณ
+          <input id="fabric-size-hint" placeholder="เช่น กลาง / 40×35 ซม." />
+        </label>
+        <label class="field">หน้ากว้างผ้า (ซม.)
+          <input id="fabric-width" inputmode="decimal" value="110" />
+        </label>
+        <label class="field">เผื่อตะเข็บ (ซม. ต่อด้าน)
+          <input id="fabric-seam" inputmode="decimal" value="1.5" />
+        </label>
+        <label class="field">ความยาวชิ้น (ซม.) — ใช้เมื่อกำหนดเอง
+          <input id="fabric-length" inputmode="decimal" />
+        </label>
+        <label class="field">ความกว้างชิ้น (ซม.) — ใช้เมื่อกำหนดเอง
+          <input id="fabric-piece-width" inputmode="decimal" />
+        </label>
+        <button type="submit" class="btn-primary-block">คำนวณ</button>
+        <div id="fabric-result" class="result-card" hidden></div>
+        <p class="muted">เป็นค่าประมาณ — ปรับเผื่อได้ตามผ้าจริง</p>
+      </form>
+    </section>
+
+    <!-- BUILDS -->
+    <section id="screen-builds" class="screen" data-screen="builds" hidden aria-label="ทำชิ้นงาน">
+      <header class="sub-header">
+        <button type="button" class="btn-back" data-go="home">← กลับ</button>
+        <h2>✂️ ทำชิ้นงาน</h2>
+      </header>
+      <button type="button" class="project-card build-pick" id="btn-start-bag">
+        <div class="project-card-body">
+          <strong>ถุงผ้าใบง่าย</strong>
+          <span class="project-next">⭐ ง่าย · 8 ขั้น · ประมาณ 30–60 นาที</span>
+          <span class="project-miss">ผ้า / ด้าย / กรรไกร / จักร</span>
+        </div>
+      </button>
+      <p class="muted">ชิ้นอื่นจะเพิ่มทีหลัง — เริ่มจากถุงผ้าระหว่างฝึก</p>
+    </section>
+
+    <section id="screen-build-step" class="screen" data-screen="build-step" hidden>
+      <header class="sub-header">
+        <button type="button" class="btn-back" id="btn-build-back">← รายการ</button>
+        <h2 id="build-step-heading">ขั้น</h2>
+      </header>
+      <div class="result-card">
+        <p id="build-step-emoji" class="build-emoji">✂️</p>
+        <h3 id="build-step-title"></h3>
+        <p id="build-step-body" class="build-body"></p>
+        <label class="check-row">
+          <input type="checkbox" id="build-step-done" />
+          <span>ทำขั้นนี้แล้ว</span>
+        </label>
+        <div class="row-btns">
+          <button type="button" class="btn-secondary-block" id="btn-build-prev">ขั้นก่อน</button>
+          <button type="button" class="btn-primary-block" id="btn-build-next">ขั้นถัดไป</button>
+        </div>
+        <button type="button" class="btn-primary-block" id="btn-build-finish" hidden>เสร็จทั้งชิ้น ✓</button>
+        <p id="build-msg" class="form-msg" role="status"></p>
+      </div>
+    </section>
+
+    <!-- HELP -->
+    <section id="screen-help" class="screen" data-screen="help" hidden aria-label="แก้ปัญหา">
+      <header class="sub-header">
+        <button type="button" class="btn-back" data-go="home">← กลับ</button>
+        <h2>🆘 แก้ปัญหา</h2>
+      </header>
+      <div id="help-menu" class="project-list"></div>
+      <div id="help-flow" class="result-card" hidden>
+        <p id="help-q" class="build-body"></p>
+        <div id="help-actions" class="row-btns"></div>
+        <button type="button" class="btn-text" id="btn-help-restart">เลือกปัญหาใหม่</button>
+      </div>
+    </section>
+
+    <!-- SKILLS -->
+    <section id="screen-skills" class="screen" data-screen="skills" hidden aria-label="ทักษะ">
+      <header class="sub-header">
+        <button type="button" class="btn-back" data-go="home">← กลับ</button>
+        <h2>⭐ ทักษะของฉัน</h2>
+      </header>
+      <div id="skills-list" class="skills-list"></div>
+      <div class="result-card">
+        <strong>ฝึกติดซิป 5 ครั้ง</strong>
+        <p class="muted" id="zipper-progress">ทำแล้ว 0 / 5</p>
+        <button type="button" class="btn-primary-block" id="btn-zipper-bump">＋ บันทึกว่าฝึกซิป 1 ครั้ง</button>
+      </div>
+    </section>
   </div>
-  <script src="schema.js?v=companion1"></script>
-  <script src="app.js?v=companion1"></script>
+  <script src="schema.js?v=core1"></script>
+  <script src="app.js?v=core1"></script>
 </body>
 </html>

@@ -401,3 +401,27 @@ button {
 }
 .form-msg { min-height: 1.4em; font-weight: 700; color: var(--mint); }
 .muted { color: var(--ink-soft); font-size: 0.95rem; }
+
+/* core1 extras */
+.row-btns{display:grid;gap:10px;margin-top:12px}
+@media(min-width:420px){.row-btns{grid-template-columns:1fr 1fr}}
+.btn-secondary-block{
+  display:block;width:100%;min-height:52px;border-radius:16px;font-size:1.1rem;font-weight:800;
+  border:2px solid rgba(59,42,36,.12);background:#fff;color:var(--ink,#3b2a24);
+}
+.build-emoji{font-size:2.4rem;margin:0 0 8px}
+.build-body{font-size:1.15rem;line-height:1.55;margin:0 0 14px}
+.check-row{display:flex;gap:10px;align-items:center;font-weight:700;font-size:1.1rem;margin:12px 0}
+.check-row input{width:22px;height:22px}
+.result-card{
+  background:#fff;border-radius:18px;padding:16px;border:2px solid rgba(59,42,36,.08);
+  box-shadow:var(--shadow,0 8px 24px rgba(59,42,36,.12));margin-top:12px;
+}
+.skills-list{display:grid;gap:8px;margin-bottom:14px}
+.skill-row{
+  display:flex;justify-content:space-between;align-items:center;
+  background:#fff;border-radius:14px;padding:14px 16px;font-size:1.1rem;
+  border:2px solid rgba(59,42,36,.06);
+}
+.build-pick{cursor:pointer}
+.home-nav{display:grid;gap:12px}

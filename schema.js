@@ -1,13 +1,17 @@
 /**
- * Yeb Sewing Companion — local schema (V0.1)
- * Keys live in localStorage only. Ai CPU WEB may extend; keep these fields stable.
+ * Yeb Sewing Companion — local schema (V0.3–V0.7)
+ * Keys live in localStorage only. No login / AI.
  */
 (function (global) {
   'use strict';
 
   var KEYS = {
     projects: 'yeb.projects.v1',
-    body: 'yeb.body.v1'
+    body: 'yeb.body.v1',
+    patterns: 'yeb.patterns.v1',
+    fabricCalc: 'yeb.fabricCalc.v1',
+    builds: 'yeb.builds.v1',
+    skills: 'yeb.skills.v1'
   };
 
   function uid(prefix) {
@@ -34,7 +38,7 @@
     localStorage.setItem(key, JSON.stringify(value));
   }
 
-  /** @typedef {{ id:string, title:string, photoDataUrl:?string, fabric:string, how:string, mistake:string, nextTime:string, createdAt:string, updatedAt:string }} Project */
+  /* —— Projects (V0.1) —— */
 
   function listProjects() {
     var list = readJson(KEYS.projects, []);
@@ -69,11 +73,22 @@
     var row = {
       id: id,
       title: String(partial.title || '').trim() || 'งานไม่มีชื่อ',
-      photoDataUrl: partial.photoDataUrl != null ? partial.photoDataUrl : existing && existing.photoDataUrl || null,
-      fabric: String(partial.fabric != null ? partial.fabric : (existing && existing.fabric) || '').trim(),
-      how: String(partial.how != null ? partial.how : (existing && existing.how) || '').trim(),
-      mistake: String(partial.mistake != null ? partial.mistake : (existing && existing.mistake) || '').trim(),
-      nextTime: String(partial.nextTime != null ? partial.nextTime : (existing && existing.nextTime) || '').trim(),
+      photoDataUrl:
+        partial.photoDataUrl != null
+          ? partial.photoDataUrl
+          : (existing && existing.photoDataUrl) || null,
+      fabric: String(
+        partial.fabric != null ? partial.fabric : (existing && existing.fabric) || ''
+      ).trim(),
+      how: String(
+        partial.how != null ? partial.how : (existing && existing.how) || ''
+      ).trim(),
+      mistake: String(
+        partial.mistake != null ? partial.mistake : (existing && existing.mistake) || ''
+      ).trim(),
+      nextTime: String(
+        partial.nextTime != null ? partial.nextTime : (existing && existing.nextTime) || ''
+      ).trim(),
       createdAt: existing && existing.createdAt ? existing.createdAt : now,
       updatedAt: now
     };
@@ -84,16 +99,15 @@
   }
 
   function deleteProject(id) {
-    var list = listProjects().filter(function (p) {
-      return p.id !== id;
-    });
-    saveProjects(list);
+    saveProjects(
+      listProjects().filter(function (p) {
+        return p.id !== id;
+      })
+    );
   }
 
-  /**
-   * Body measurements in cm.
-   * { bust, waist, hip, height, notes, updatedAt }
-   */
+  /* —— Body (V0.1) —— */
+
   function getBody() {
     return (
       readJson(KEYS.body, null) || {
@@ -121,13 +135,239 @@
     return row;
   }
 
+  /* —— Patterns (V0.3) —— */
+
+  function listPatterns() {
+    var list = readJson(KEYS.patterns, []);
+    return Array.isArray(list) ? list : [];
+  }
+
+  function savePatterns(list) {
+    writeJson(KEYS.patterns, list || []);
+  }
+
+  function getPattern(id) {
+    var list = listPatterns();
+    for (var i = 0; i < list.length; i++) {
+      if (list[i].id === id) return list[i];
+    }
+    return null;
+  }
+
+  function upsertPattern(partial) {
+    var list = listPatterns();
+    var now = new Date().toISOString();
+    var id = partial.id || uid('pat');
+    var existing = null;
+    var idx = -1;
+    for (var i = 0; i < list.length; i++) {
+      if (list[i].id === id) {
+        existing = list[i];
+        idx = i;
+        break;
+      }
+    }
+    var row = {
+      id: id,
+      name: String(partial.name || '').trim() || 'แพทเทิร์นไม่มีชื่อ',
+      note: String(
+        partial.note != null ? partial.note : (existing && existing.note) || ''
+      ).trim(),
+      linkOrNotes: String(
+        partial.linkOrNotes != null
+          ? partial.linkOrNotes
+          : (existing && existing.linkOrNotes) || ''
+      ).trim(),
+      bodyRef: String(
+        partial.bodyRef != null ? partial.bodyRef : (existing && existing.bodyRef) || ''
+      ).trim(),
+      createdAt: existing && existing.createdAt ? existing.createdAt : now,
+      updatedAt: now
+    };
+    if (idx >= 0) list[idx] = row;
+    else list.unshift(row);
+    savePatterns(list);
+    return row;
+  }
+
+  function deletePattern(id) {
+    savePatterns(
+      listPatterns().filter(function (p) {
+        return p.id !== id;
+      })
+    );
+  }
+
+  /* —— Fabric calculator (V0.4) —— */
+
+  function getFabricCalc() {
+    return (
+      readJson(KEYS.fabricCalc, null) || {
+        workType: 'bag',
+        sizeHint: '',
+        fabricWidth: '110',
+        seamAllowance: '1.5',
+        lengthCm: '',
+        widthCm: '',
+        updatedAt: null
+      }
+    );
+  }
+
+  function saveFabricCalc(partial) {
+    var cur = getFabricCalc();
+    var row = {
+      workType: partial.workType != null ? String(partial.workType) : cur.workType,
+      sizeHint: partial.sizeHint != null ? String(partial.sizeHint) : cur.sizeHint,
+      fabricWidth:
+        partial.fabricWidth != null ? String(partial.fabricWidth) : cur.fabricWidth,
+      seamAllowance:
+        partial.seamAllowance != null
+          ? String(partial.seamAllowance)
+          : cur.seamAllowance,
+      lengthCm: partial.lengthCm != null ? String(partial.lengthCm) : cur.lengthCm,
+      widthCm: partial.widthCm != null ? String(partial.widthCm) : cur.widthCm,
+      updatedAt: new Date().toISOString()
+    };
+    writeJson(KEYS.fabricCalc, row);
+    return row;
+  }
+
+  /* —— Builds progress (V0.5) —— */
+
+  function getBuilds() {
+    var data = readJson(KEYS.builds, null);
+    if (!data || typeof data !== 'object') {
+      return { progress: {}, updatedAt: null };
+    }
+    if (!data.progress || typeof data.progress !== 'object') data.progress = {};
+    return data;
+  }
+
+  function saveBuilds(data) {
+    data.updatedAt = new Date().toISOString();
+    writeJson(KEYS.builds, data);
+    return data;
+  }
+
+  function getBuildProgress(projectId) {
+    var data = getBuilds();
+    return data.progress[projectId] || { doneSteps: [], completedAt: null };
+  }
+
+  function setBuildStepDone(projectId, stepIndex, done) {
+    var data = getBuilds();
+    var prog = data.progress[projectId] || { doneSteps: [], completedAt: null };
+    var set = {};
+    for (var i = 0; i < (prog.doneSteps || []).length; i++) {
+      set[prog.doneSteps[i]] = true;
+    }
+    if (done) set[stepIndex] = true;
+    else delete set[stepIndex];
+    var doneSteps = Object.keys(set)
+      .map(Number)
+      .filter(function (n) {
+        return !isNaN(n);
+      })
+      .sort(function (a, b) {
+        return a - b;
+      });
+    prog.doneSteps = doneSteps;
+    data.progress[projectId] = prog;
+    return saveBuilds(data);
+  }
+
+  function markBuildComplete(projectId, totalSteps) {
+    var data = getBuilds();
+    var prog = data.progress[projectId] || { doneSteps: [], completedAt: null };
+    var all = [];
+    for (var i = 0; i < totalSteps; i++) all.push(i);
+    prog.doneSteps = all;
+    prog.completedAt = new Date().toISOString();
+    data.progress[projectId] = prog;
+    return saveBuilds(data);
+  }
+
+  /* —— Skills (V0.7) —— */
+
+  var DEFAULT_SKILLS = {
+    cut: 0,
+    straightSeam: 0,
+    finishEdge: 0,
+    press: 0,
+    zipper: 0,
+    hem: 0,
+    gather: 0,
+    sleeve: 0,
+    neckline: 0,
+    projectsDone: 0,
+    zipperChallenge: 0
+  };
+
+  function getSkills() {
+    var s = readJson(KEYS.skills, null) || {};
+    var out = {};
+    for (var k in DEFAULT_SKILLS) {
+      if (Object.prototype.hasOwnProperty.call(DEFAULT_SKILLS, k)) {
+        out[k] = typeof s[k] === 'number' ? s[k] : DEFAULT_SKILLS[k];
+      }
+    }
+    return out;
+  }
+
+  function saveSkills(partial) {
+    var cur = getSkills();
+    for (var k in partial) {
+      if (Object.prototype.hasOwnProperty.call(partial, k) && k in DEFAULT_SKILLS) {
+        cur[k] = Math.max(0, Number(partial[k]) || 0);
+      }
+    }
+    writeJson(KEYS.skills, cur);
+    return cur;
+  }
+
+  function bumpSkill(key, amount) {
+    var cur = getSkills();
+    if (!(key in DEFAULT_SKILLS)) return cur;
+    cur[key] = (cur[key] || 0) + (amount || 1);
+    writeJson(KEYS.skills, cur);
+    return cur;
+  }
+
+  function bumpSkills(map) {
+    var cur = getSkills();
+    for (var k in map) {
+      if (Object.prototype.hasOwnProperty.call(map, k) && k in DEFAULT_SKILLS) {
+        cur[k] = (cur[k] || 0) + (Number(map[k]) || 0);
+      }
+    }
+    writeJson(KEYS.skills, cur);
+    return cur;
+  }
+
   global.YebStore = {
     KEYS: KEYS,
+    uid: uid,
     listProjects: listProjects,
     getProject: getProject,
     upsertProject: upsertProject,
     deleteProject: deleteProject,
     getBody: getBody,
-    saveBody: saveBody
+    saveBody: saveBody,
+    listPatterns: listPatterns,
+    getPattern: getPattern,
+    upsertPattern: upsertPattern,
+    deletePattern: deletePattern,
+    getFabricCalc: getFabricCalc,
+    saveFabricCalc: saveFabricCalc,
+    getBuilds: getBuilds,
+    getBuildProgress: getBuildProgress,
+    setBuildStepDone: setBuildStepDone,
+    markBuildComplete: markBuildComplete,
+    getSkills: getSkills,
+    saveSkills: saveSkills,
+    bumpSkill: bumpSkill,
+    bumpSkills: bumpSkills,
+    DEFAULT_SKILLS: DEFAULT_SKILLS
   };
 })(typeof window !== 'undefined' ? window : globalThis);
