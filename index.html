@@ -11,7 +11,7 @@
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link href="https://fonts.googleapis.com/css2?family=Sarabun:wght@400;500;600;700&display=swap" rel="stylesheet" />
-  <link rel="stylesheet" href="styles.css?v=repair41" />
+  <link rel="stylesheet" href="styles.css?v=repair50" />
 </head>
 <body>
   <div id="app" class="app">
@@ -64,7 +64,7 @@
           <span class="big-btn-hint">ดูว่าฝึกอะไรไปแล้ว</span>
         </button>
       </nav>
-      <footer class="home-footer"><p>V0.4 · ซ่อมบ้าน · ไม่มี AI</p></footer>
+      <footer class="home-footer"><p>V0.5 · ซ่อมบ้าน · ไม่มี AI</p></footer>
     </section>
 
     <!-- PROJECTS (existing) -->
@@ -340,6 +340,7 @@
         <label class="field" id="repair-tip-wrap" hidden>จำไว้รอบหน้า
           <textarea id="repair-tip-next" rows="2" maxlength="300" placeholder="เช่น พับ 2 ซม. × 2 พอดี"></textarea>
         </label>
+        <button type="button" class="btn-secondary-block" id="btn-repair-trouble">🆘 มีปัญหา?</button>
         <div class="row-btns">
           <button type="button" class="btn-secondary-block" id="btn-repair-prev">ขั้นก่อน</button>
           <button type="button" class="btn-primary-block" id="btn-repair-next">ขั้นถัดไป</button>
@@ -349,6 +350,56 @@
       </div>
     </section>
 
+
+
+    <section id="screen-repair-trouble" class="screen" data-screen="repair-trouble" hidden>
+      <header class="sub-header">
+        <button type="button" class="btn-back" id="btn-trouble-back">← กลับ Wizard</button>
+        <h2>🆘 มีปัญหาอะไร?</h2>
+      </header>
+      <p class="lead-plain">เลือกอาการ — ถามสั้น ๆ แล้วบอกวิธีแก้ แล้วกลับไปทำต่อได้</p>
+      <div id="trouble-topic-list" class="home-nav"></div>
+    </section>
+    <section id="screen-repair-trouble-flow" class="screen" data-screen="repair-trouble-flow" hidden>
+      <header class="sub-header">
+        <button type="button" class="btn-back" id="btn-trouble-flow-back">← เลือกอาการ</button>
+        <h2 id="trouble-flow-title">แก้ปัญหา</h2>
+      </header>
+      <div class="result-card">
+        <p id="trouble-q" class="build-body"></p>
+        <div id="trouble-answers" class="home-nav"></div>
+        <div id="trouble-solution-wrap" hidden>
+          <p class="field-label">วิธีแก้</p>
+          <p id="trouble-solution" class="build-body"></p>
+          <div class="field" id="trouble-before-wrap">
+            <span class="field-label">📷 รูปก่อนแก้ (ข้ามได้)</span>
+            <div class="photo-row">
+              <label class="btn-photo">ถ่าย / เลือก
+                <input type="file" id="trouble-photo-before" accept="image/*" capture="environment" hidden />
+              </label>
+              <button type="button" class="btn-text" id="btn-trouble-skip-before">ข้าม</button>
+            </div>
+            <img id="trouble-photo-before-preview" class="photo-preview" alt="" hidden />
+          </div>
+          <div class="field">
+            <span class="field-label">📷 รูปหลังแก้ (ข้ามได้)</span>
+            <div class="photo-row">
+              <label class="btn-photo">ถ่าย / เลือก
+                <input type="file" id="trouble-photo-after" accept="image/*" capture="environment" hidden />
+              </label>
+              <button type="button" class="btn-text" id="btn-trouble-skip-after">ข้าม</button>
+            </div>
+            <img id="trouble-photo-after-preview" class="photo-preview" alt="" hidden />
+          </div>
+          <label class="field">จำไว้รอบหน้า
+            <textarea id="trouble-tip-next" rows="2" maxlength="300" placeholder="เช่น ลดความตึงด้ายบนก่อนเย็บผ้าบาง"></textarea>
+          </label>
+          <button type="button" class="btn-primary-block" id="btn-trouble-save">บันทึกประวัติแล้วกลับ Wizard ✓</button>
+          <button type="button" class="btn-secondary-block" id="btn-trouble-resume">กลับ Wizard โดยไม่บันทึก</button>
+          <p id="trouble-msg" class="form-msg" role="status"></p>
+        </div>
+      </div>
+    </section>
 
     <section id="screen-repair-detail" class="screen" data-screen="repair-detail" hidden>
       <header class="sub-header">
@@ -365,9 +416,9 @@
       <div id="repair-history-list" class="project-list"></div>
     </section>
   </div>
-  <script src="schema.js?v=repair41"></script>
-  <script src="repairs-data.js?v=repair41"></script>
-  <script src="repairs-app.js?v=repair41"></script>
-  <script src="app.js?v=repair41"></script>
+  <script src="schema.js?v=repair50"></script>
+  <script src="repairs-data.js?v=repair50"></script>
+  <script src="repairs-app.js?v=repair50"></script>
+  <script src="app.js?v=repair50"></script>
 </body>
 </html>
